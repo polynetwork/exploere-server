@@ -1,14 +1,18 @@
 version: '3.8'
 
 services:
-  blockscout:
+  blockscout_server:
+    build:
+      context: ..
+      dockerfile: ./docker/Dockerfile
     image: blockscout/blockscout:${DOCKER_TAG:-latest}
     restart: always
-    container_name: 'blockscout_test'
+    container_name: 'blockscout_server'
     command: 'mix do ecto.create, ecto.migrate, phx.server'
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     env_file:
       -  ./envs/common-blockscout.env
     ports:
-      - 4000:4000
+      - 4001:4001
+
