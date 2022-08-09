@@ -23,7 +23,9 @@ EXPOSE 4000
 
 ENV PORT=4000 \
     MIX_ENV="prod" \
-    SECRET_KEY_BASE="RMgI4C1HSkxsEjdhtGMfwAHfyT6CKWXOgzCboJflfSm4jeAlic52io05KB6mqzc5"
+    SECRET_KEY_BASE="RMgI4C1HSkxsEjdhtGMfwAHfyT6CKWXOgzCboJflfSm4jeAlic52io05KB6mqzc5" \
+    NETWORK_PATH="/testnet" \
+    SOCKET_ROOT="/testnet"
 
 # Cache elixir deps
 ADD mix.exs mix.lock ./
