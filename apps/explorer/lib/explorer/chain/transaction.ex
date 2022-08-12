@@ -775,6 +775,27 @@ defmodule Explorer.Chain.Transaction do
   end
 
   @doc """
+  Builds an `Ecto.Query` to fetch transactions except native contract calls with the specified block_number and native contract list
+  """
+  def not_native_transactions_with_block_number(block_number) do
+    native_contract_address_hash = [
+      "0x0000000000000000000000000000000000001000",
+      "0x0000000000000000000000000000000000001001",
+      "0x0000000000000000000000000000000000001002",
+      "0x0000000000000000000000000000000000001003",
+      "0x0000000000000000000000000000000000001004",
+      "0x0000000000000000000000000000000000001005",
+      "0x0000000000000000000000000000000000001006",
+      "0x0000000000000000000000000000000000001007",
+      "0x0000000000000000000000000000000000001008",
+    ]
+    from(
+      t in Transaction,
+      where: t.block_number == ^block_number and t.to_address_hash not in ^native_contract_address_hash
+    )
+  end
+
+  @doc """
   Builds an `Ecto.Query` to fetch the last nonce from the given address hash.
 
   The last nonce value means the total of transactions that the given address has sent through the

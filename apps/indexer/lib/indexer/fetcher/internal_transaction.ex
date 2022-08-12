@@ -167,7 +167,7 @@ defmodule Indexer.Fetcher.InternalTransaction do
     Enum.reduce(unique_numbers, {:ok, []}, fn
       block_number, {:ok, acc_list} ->
         block_number
-        |> Chain.get_transactions_of_block_number()
+        |> Chain.get_not_native_transactions_of_block_number()
         |> Enum.map(&params(&1))
         |> case do
           [] ->

@@ -2349,6 +2349,15 @@ defmodule Explorer.Chain do
   end
 
   @doc """
+  Finds all transactions except native contract call of a certain block number
+  """
+  def get_not_native_transactions_of_block_number(block_number) do
+    block_number
+    |> Transaction.not_native_transactions_with_block_number()
+    |> Repo.all()
+  end
+
+  @doc """
   Finds all Blocks validated by the address with the given hash.
 
     ## Options
