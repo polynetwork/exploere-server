@@ -277,19 +277,20 @@ defmodule Explorer.Chain.Import.Runner.InternalTransactions do
     # common_tuples = MapSet.intersection(required_tuples, candidate_tuples) #should be added
     # |> MapSet.difference(internal_transactions_tuples) should be replaced with |> MapSet.difference(common_tuples)
 
-    transactions_tuples = MapSet.new(transactions, &{&1.hash, &1.block_number})
-
-    internal_transactions_tuples = MapSet.new(internal_transactions_params, &{&1.transaction_hash, &1.block_number})
-
-    all_tuples = MapSet.union(transactions_tuples, internal_transactions_tuples)
-
-    invalid_block_numbers =
-      all_tuples
-      |> MapSet.difference(internal_transactions_tuples)
-      |> MapSet.new(fn {_hash, block_number} -> block_number end)
-      |> MapSet.to_list()
-
-    {:ok, invalid_block_numbers}
+#    transactions_tuples = MapSet.new(transactions, &{&1.hash, &1.block_number})
+#
+#    internal_transactions_tuples = MapSet.new(internal_transactions_params, &{&1.transaction_hash, &1.block_number})
+#
+#    all_tuples = MapSet.union(transactions_tuples, internal_transactions_tuples)
+#
+#    invalid_block_numbers =
+#      all_tuples
+#      |> MapSet.difference(internal_transactions_tuples)
+#      |> MapSet.new(fn {_hash, block_number} -> block_number end)
+#      |> MapSet.to_list()
+#
+#    {:ok, invalid_block_numbers}
+    {:ok, []}
   end
 
   defp valid_internal_transactions(transactions, internal_transactions_params, invalid_block_numbers) do
