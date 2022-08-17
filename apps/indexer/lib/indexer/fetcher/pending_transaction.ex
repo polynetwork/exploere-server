@@ -94,9 +94,9 @@ defmodule Indexer.Fetcher.PendingTransaction do
     case result do
       {:ok, new_last_fetch_at} ->
         {:noreply, schedule_fetch(%{state | last_fetch_at: new_last_fetch_at})}
-
+# connection_refused error
       _ ->
-        {:noreply, schedule_fetch(state)}
+        {:noreply, schedule_fetch_long_interval(state)}
     end
   end
 
@@ -111,6 +111,11 @@ defmodule Indexer.Fetcher.PendingTransaction do
 
   defp schedule_fetch(%__MODULE__{interval: interval} = state) do
     Process.send_after(self(), :fetch, interval)
+    %__MODULE__{state | task: nil}
+  end
+
+  defp schedule_fetch_long_interval(%__MODULE__{interval: interval} = state) do
+    Process.send_after(self(), :fetch, interval * 30)
     %__MODULE__{state | task: nil}
   end
 

@@ -39,7 +39,6 @@ defmodule Indexer.Fetcher.CoinBalance do
       :ok
     else
       entries = Enum.map(balance_fields, &entry/1)
-
       BufferedTask.buffer(__MODULE__, entries)
     end
   end

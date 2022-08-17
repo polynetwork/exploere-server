@@ -307,7 +307,8 @@ defmodule Indexer.Block.Catchup.BoundIntervalSupervisor do
       "Catchup index stream exited because the archive node endpoint at #{Keyword.get(options, :url)} is unavailable. Restarting"
     end)
 
-    send(self(), :catchup_index)
+#    send(self(), :catchup_index)
+    Process.send_after(self(), :catchup_index, :timer.seconds(30))
 
     {:noreply, %__MODULE__{state | task: nil}}
   end
@@ -318,7 +319,8 @@ defmodule Indexer.Block.Catchup.BoundIntervalSupervisor do
       ) do
     Logger.error(fn -> "Catchup index stream exited with reason (#{inspect(reason)}). Restarting" end)
 
-    send(self(), :catchup_index)
+#    send(self(), :catchup_index)
+#    Process.send_after(self(), :catchup_index, :timer.seconds(5))
 
     {:noreply, %__MODULE__{state | task: nil}}
   end
@@ -329,7 +331,8 @@ defmodule Indexer.Block.Catchup.BoundIntervalSupervisor do
       ) do
     Logger.error(fn -> "Catchup index stream exited with reason (#{inspect(reason)}). Restarting" end)
 
-    send(self(), :catchup_index)
+#    send(self(), :catchup_index)
+#    Process.send_after(self(), :catchup_index, :timer.seconds(5))
 
     {:noreply, %__MODULE__{state | task: nil}}
   end
