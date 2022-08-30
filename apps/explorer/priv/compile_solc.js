@@ -52,3 +52,8 @@ const input = {
 
 const output = JSON.parse(solc.compile(JSON.stringify(input)))
 console.log(JSON.stringify(output));
+const sleep = time => {
+    return new Promise(resolve => setTimeout(resolve, time)
+    )}
+
+sleep(1000).then(()=>{ process.kill(process.pid, 'SIGINT') })

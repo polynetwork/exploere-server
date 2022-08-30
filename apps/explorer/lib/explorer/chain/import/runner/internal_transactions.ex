@@ -265,7 +265,7 @@ defmodule Explorer.Chain.Import.Runner.InternalTransactions do
     {:ok, repo.all(query)}
   end
 
-  defp invalid_block_numbers(transactions, internal_transactions_params) do
+  defp invalid_block_numbers(_transactions, _internal_transactions_params) do
     # Finds all mistmatches between transactions and internal transactions
     # for a block number:
     # - there are no internal txs for some transactions

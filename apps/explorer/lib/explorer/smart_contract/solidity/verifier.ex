@@ -26,11 +26,9 @@ defmodule Explorer.SmartContract.Solidity.Verifier do
       latest_evm_version = List.last(CodeCompiler.allowed_evm_versions())
       evm_version = Map.get(params, "evm_version", latest_evm_version)
 
-      all_versions = [evm_version | previous_evm_versions(evm_version)]
+      all_versions = [evm_version]
 
-      all_versions_extra = all_versions ++ [evm_version]
-
-      Enum.reduce_while(all_versions_extra, false, fn version, acc ->
+      Enum.reduce_while(all_versions, false, fn version, acc ->
         case acc do
           {:ok, _} = result ->
             {:cont, result}
