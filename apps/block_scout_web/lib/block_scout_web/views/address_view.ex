@@ -341,6 +341,17 @@ defmodule BlockScoutWeb.AddressView do
     ]
   end
 
+  defp matching_address_check(_current_address, _address, contract?, truncate) do
+    [
+      view_module: __MODULE__,
+      partial: "_link.html",
+      address: nil,
+      contract: contract?,
+      truncate: truncate,
+      use_custom_tooltip: false
+    ]
+  end
+
   @doc """
   Get the current tab name/title from the request path and possible tab names.
 
